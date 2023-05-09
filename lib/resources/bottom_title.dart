@@ -19,9 +19,6 @@ class BottomTitle extends StatelessWidget {
           title,
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
         ),
-        const SizedBox(
-          width: 5,
-        ),
         TextButton(
           onPressed: onPressed,
           child: Text(
