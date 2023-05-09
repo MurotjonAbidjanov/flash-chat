@@ -1,10 +1,14 @@
+import 'package:flash_chat/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
 
 class AppBarContainer extends StatelessWidget {
   const AppBarContainer({
-    super.key, required this.color, required this.label, required this.definition,
+    super.key,
+    required this.color,
+    required this.label,
+    required this.definition,
   });
   final Color color;
   final String label;
@@ -25,7 +29,10 @@ class AppBarContainer extends StatelessWidget {
               top: 10,
               child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const IntroductionScreen()));
                 },
                 icon: const Icon(
                   Icons.arrow_back,

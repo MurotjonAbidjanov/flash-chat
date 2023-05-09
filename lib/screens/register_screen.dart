@@ -1,8 +1,10 @@
 import 'package:flash_chat/constants/constants.dart';
 import 'package:flash_chat/resources/register_button.dart';
+import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/app_bar_container.dart';
+import '../resources/bottom_title.dart';
 import '../resources/my_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -43,7 +45,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               hintText: 'enter your password',
             ),
 // mobile number
- cSizedBox50,
+            cSizedBox50,
             const MyTextField(
               labelText: 'mobile',
               obscureText: true,
@@ -53,8 +55,14 @@ class _RegisterScreen extends State<RegisterScreen> {
             const Expanded(child: cSizedBox50),
             RegisterButton(
                 title: 'Register', color: Colors.grey[900], onTap: () {}),
-            cSizedBox20
-
+            cSizedBox20,
+// Text
+            BottomTitle(
+              title: 'Already have an account ',
+              titleButton: 'Login',
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen())),
+            ),
           ],
         ),
       ),
