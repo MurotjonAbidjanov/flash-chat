@@ -23,8 +23,8 @@ final TextInputType? keyboardType;
         textAlign: TextAlign.center,
         obscureText: obscureText,
         keyboardType: keyboardType,
-        cursorColor: Colors.grey[800],
-        
+        cursorColor: cWhiteColor,
+
         decoration: InputDecoration(
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
