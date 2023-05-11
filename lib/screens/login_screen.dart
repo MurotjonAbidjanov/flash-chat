@@ -21,37 +21,40 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: cLoginColor.withOpacity(0.6),
         body: Column(
           children: [
-        // AppBar
+            // AppBar
             AppBarContainer(
               label: 'Login',
               color: cLoginColor,
               definition: 'Enter your parametrs to continue',
             ),
-        //email
+            //email
             const SizedBox(
               height: 100,
             ),
             const MyTextField(
+              keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
               hintText: 'enter your username',
             ),
-        //password
+            //password
             cSizedBox50,
             const MyTextField(
+              keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,
               hintText: 'enter your password',
             ),
-        // Login button
+            // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(
                 title: 'Login', color: Colors.grey[900], onTap: () {}),
             cSizedBox20,
-        // Text Don't have an account
+            // Text Don't have an account
             BottomTitle(
               title: 'Don\'t have an account',
               titleButton: 'Register',

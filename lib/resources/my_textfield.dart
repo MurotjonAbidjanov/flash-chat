@@ -6,9 +6,11 @@ class MyTextField extends StatelessWidget {
   const MyTextField({
     super.key,
     required this.labelText,
-    required this.obscureText, required this.hintText,
+    required this.obscureText,
+    required this.hintText,required this.keyboardType,
+    
   });
-
+final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
   final String hintText;
@@ -20,6 +22,9 @@ class MyTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.center,
         obscureText: obscureText,
+        keyboardType: keyboardType,
+        cursorColor: Colors.grey[800],
+        
         decoration: InputDecoration(
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
@@ -32,7 +37,7 @@ class MyTextField extends StatelessWidget {
           labelText: labelText,
           labelStyle: const TextStyle(color: cWhiteColor, fontSize: 20),
           hintText: hintText,
-          hintStyle:const TextStyle(fontSize: 18)
+          hintStyle: const TextStyle(fontSize: 18),
         ),
       ),
     );

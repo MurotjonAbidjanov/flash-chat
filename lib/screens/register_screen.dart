@@ -19,44 +19,48 @@ class _RegisterScreen extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: cRegisterColor.withOpacity(0.6),
         body: Column(
           children: [
-        // AppBar
+            // AppBar
             AppBarContainer(
               label: 'Register',
               color: cRegisterColor,
               definition: 'Fill up your details to register.',
             ),
-        //email
+            //email
             const SizedBox(
-              height: 100,
+              height: 50,
             ),
             const MyTextField(
+              keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
               hintText: 'enter your username',
             ),
-        //password
+            //password
             cSizedBox50,
             const MyTextField(
+              keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,
               hintText: 'enter your password',
             ),
-        // mobile number
+            // mobile number
             cSizedBox50,
             const MyTextField(
+              keyboardType: TextInputType.phone,
               labelText: 'mobile',
               obscureText: true,
               hintText: 'enter your mobile number',
             ),
-        // Login button
+            // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(
                 title: 'Register', color: Colors.grey[900], onTap: () {}),
             cSizedBox20,
-        // Text
+            // Text
             BottomTitle(
               title: 'Already have an account ',
               titleButton: 'Login',
