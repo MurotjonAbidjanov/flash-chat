@@ -1,7 +1,8 @@
 import 'package:flash_chat/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const HomePage());
 }
 
@@ -10,10 +11,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home:const IntroductionScreen(),
+      home: const IntroductionScreen(),
     );
   }
 }

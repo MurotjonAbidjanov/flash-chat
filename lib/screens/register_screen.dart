@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/constants/constants.dart';
 import 'package:flash_chat/resources/register_button.dart';
+import 'package:flash_chat/screens/home_screen.dart';
 import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +18,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreen extends State<RegisterScreen> {
+  final username = TextEditingController();
+  final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,6 +39,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               height: 50,
             ),
             const MyTextField(
+              controller: username,
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
@@ -58,15 +64,24 @@ class _RegisterScreen extends State<RegisterScreen> {
             // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(
-                title: 'Register', color: Colors.grey[900], onTap: () {}),
+                title: 'Register',
+                color: Colors.grey[900],
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
             cSizedBox20,
             // Text
             BottomTitle(
-              title: 'Already have an account ',
-              titleButton: 'Login',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen())),
-            ),
+                title: 'Already have an account ',
+                titleButton: 'Login',
+                onPressed: () {
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(
+                      email: username.text, password: password.text);
+
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                }),
           ],
         ),
       ),

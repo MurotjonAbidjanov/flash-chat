@@ -20,7 +20,7 @@ class AppBarContainer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius:
-              const BorderRadius.vertical(bottom: Radius.circular(30)),
+              const BorderRadius.vertical(bottom: Radius.circular(60)),
           color: color),
       child: Stack(
         children: [
