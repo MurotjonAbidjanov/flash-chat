@@ -15,8 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  String username = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 100,
             ),
-            const MyTextField(
+            MyTextField(
+              onChanged: (value) {
+                value = username;
+              },
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
@@ -43,7 +46,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //password
             cSizedBox50,
-            const MyTextField(
+            MyTextField(
+              onChanged: (value) {
+                value = password;
+              },
               keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,

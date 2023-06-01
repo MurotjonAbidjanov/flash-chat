@@ -16,10 +16,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreen extends State<RegisterScreen> {
+  String username = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
-    final username = TextEditingController();
-    final password = TextEditingController();
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -36,8 +37,10 @@ class _RegisterScreen extends State<RegisterScreen> {
             const SizedBox(
               height: 50,
             ),
-            const MyTextField(
-              // controller: username,
+            MyTextField(
+              onChanged: (value) {
+                value = username;
+              },
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
@@ -45,7 +48,10 @@ class _RegisterScreen extends State<RegisterScreen> {
             ),
             //password
             cSizedBox50,
-            const MyTextField(
+            MyTextField(
+              onChanged: (value) {
+                value = password;
+              },
               keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,
@@ -53,7 +59,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             ),
             // mobile number
             cSizedBox50,
-            const MyTextField(
+            MyTextField(
               keyboardType: TextInputType.phone,
               labelText: 'mobile',
               obscureText: true,
