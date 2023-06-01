@@ -7,24 +7,26 @@ class MyTextField extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.obscureText,
-    required this.hintText,required this.keyboardType,
-    
+    required this.hintText,
+    required this.keyboardType,
+    this.controller,
   });
-final TextInputType? keyboardType;
+  final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
   final String hintText;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
+    
         textAlign: TextAlign.center,
         obscureText: obscureText,
         keyboardType: keyboardType,
         cursorColor: cWhiteColor,
-
         decoration: InputDecoration(
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),

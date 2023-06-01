@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/constants/constants.dart';
 import 'package:flash_chat/resources/register_button.dart';
 import 'package:flash_chat/screens/home_screen.dart';
@@ -18,10 +17,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreen extends State<RegisterScreen> {
-  final username = TextEditingController();
-  final password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final username = TextEditingController();
+    final password = TextEditingController();
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -39,7 +38,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               height: 50,
             ),
             const MyTextField(
-              controller: username,
+              // controller: username,
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
