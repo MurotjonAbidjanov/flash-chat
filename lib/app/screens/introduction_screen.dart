@@ -1,10 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flash_chat/constants/constants.dart';
-import 'package:flash_chat/screens/login_screen.dart';
-import 'package:flash_chat/screens/register_screen.dart';
+import 'package:flash_chat/app/constants/constants.dart';
+import 'package:flash_chat/app/screens/login_screen.dart';
+import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../resources/register_button.dart';
+import '../resources/buttons/register_button.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});

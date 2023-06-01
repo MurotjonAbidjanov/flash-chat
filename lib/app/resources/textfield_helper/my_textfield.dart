@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({
-    super.key,
-    required this.labelText,
-    required this.obscureText,
-    required this.hintText,
-    required this.keyboardType,
-    this.controller,
-  });
+  MyTextField(
+      {super.key,
+      required this.labelText,
+      required this.obscureText,
+      required this.hintText,
+      this.keyboardType,
+      this.onChanged});
   final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
   final String hintText;
-  final TextEditingController? controller;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
-    
+        onChanged: onChanged,
         textAlign: TextAlign.center,
         obscureText: obscureText,
         keyboardType: keyboardType,

@@ -1,4 +1,4 @@
-import 'package:flash_chat/screens/introduction_screen.dart';
+import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

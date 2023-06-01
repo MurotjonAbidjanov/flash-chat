@@ -1,11 +1,11 @@
-import 'package:flash_chat/constants/constants.dart';
-import 'package:flash_chat/resources/register_button.dart';
-import 'package:flash_chat/screens/register_screen.dart';
+import 'package:flash_chat/app/constants/constants.dart';
+import 'package:flash_chat/app/resources/buttons/register_button.dart';
+import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../resources/app_bar_container.dart';
-import '../resources/bottom_title.dart';
-import '../resources/my_textfield.dart';
+import '../resources/appBar_helper/app_bar_container.dart';
+import '../resources/buttons/bottom_title.dart';
+import '../resources/textfield_helper/my_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);

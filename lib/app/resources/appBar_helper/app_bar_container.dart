@@ -1,7 +1,7 @@
-import 'package:flash_chat/screens/introduction_screen.dart';
+import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/constants.dart';
+import '../../constants/constants.dart';
 
 class AppBarContainer extends StatelessWidget {
   const AppBarContainer({
