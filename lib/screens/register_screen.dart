@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/constants/constants.dart';
 import 'package:flash_chat/resources/register_button.dart';
 import 'package:flash_chat/screens/home_screen.dart';
@@ -75,9 +74,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                 title: 'Already have an account ',
                 titleButton: 'Login',
                 onPressed: () {
-                  FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: username.text, password: password.text);
-
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
                 }),
