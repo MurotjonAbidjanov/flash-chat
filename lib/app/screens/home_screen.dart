@@ -1,3 +1,4 @@
+import 'package:flash_chat/app/resources/appBar_helper/nav_bar_drawer.dart';
 import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavBarDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: Text('WELCOME'),
