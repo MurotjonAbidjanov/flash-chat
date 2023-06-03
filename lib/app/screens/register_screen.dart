@@ -62,7 +62,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             MyTextField(
               keyboardType: TextInputType.phone,
               labelText: 'mobile',
-              obscureText: true,
+              obscureText: false,
               hintText: 'enter your mobile number',
             ),
             // Login button
