@@ -1,9 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/buttons/register_button.dart';
-import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../resources/appBar_helper/app_bar_container.dart';
 import '../resources/buttons/bottom_title.dart';
 import '../resources/textfield_helper/my_textfield.dart';
@@ -16,8 +15,34 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreen extends State<RegisterScreen> {
-  String username = '';
-  String password = '';
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  void signUp() async {
+    setState(() {});
+    // make sure password match
+    if (passwordController != confirmPasswordController) {
+      // display error
+      displayMessage('Passwords don\'t match');
+      return;
+    }
+// creating user
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usernameController.text, password: passwordController.text);
+    } on FirebaseException catch (e) {
+      displayMessage(e.code);
+    }
+  }
+
+  void displayMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(message),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +63,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               height: 50,
             ),
             MyTextField(
-              onChanged: (value) {
-                value = username;
-              },
+              controller: usernameController,
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
@@ -49,9 +72,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             //password
             cSizedBox50,
             MyTextField(
-              onChanged: (value) {
-                value = password;
-              },
+              controller: passwordController,
               keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,
@@ -60,20 +81,16 @@ class _RegisterScreen extends State<RegisterScreen> {
             // mobile number
             cSizedBox50,
             MyTextField(
-              keyboardType: TextInputType.phone,
-              labelText: 'mobile',
-              obscureText: false,
+              controller: confirmPasswordController,
+              keyboardType: TextInputType.visiblePassword,
+              labelText: 'Confirm password',
+              obscureText: true,
               hintText: 'enter your mobile number',
             ),
             // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(
-                title: 'Register',
-                color: Colors.grey[900],
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                }),
+                title: 'Register', color: Colors.grey[900], onTap: signUp),
             cSizedBox20,
             // Text
             BottomTitle(

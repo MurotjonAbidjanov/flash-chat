@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
@@ -15,8 +17,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username = '';
-  String password = '';
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void signIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: usernameController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      displayMessage(e.code);
+      setState(() {});
+    }
+  }
+
+  void displayMessage(String message) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(message),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,9 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 100,
             ),
             MyTextField(
-              onChanged: (value) {
-                value = username;
-              },
+              controller: usernameController,
               keyboardType: TextInputType.emailAddress,
               labelText: 'username',
               obscureText: false,
@@ -47,9 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //password
             cSizedBox50,
             MyTextField(
-              onChanged: (value) {
-                value = password;
-              },
+              controller: passwordController,
               keyboardType: TextInputType.visiblePassword,
               labelText: 'password',
               obscureText: true,
@@ -58,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(
-                title: 'Login', color: Colors.grey[900], onTap: () {}),
+                title: 'Login', color: Colors.grey[900], onTap: signIn),
             cSizedBox20,
             // Text Don't have an account
             BottomTitle(

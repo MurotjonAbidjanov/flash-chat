@@ -9,19 +9,20 @@ class MyTextField extends StatelessWidget {
       required this.obscureText,
       required this.hintText,
       this.keyboardType,
-      this.onChanged});
+      this.controller});
   final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
   final String hintText;
-  final Function(String)? onChanged;
+  TextEditingController? controller;
+ 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
-        onChanged: onChanged,
+       controller:controller ,
         textAlign: TextAlign.center,
         obscureText: obscureText,
         keyboardType: keyboardType,
