@@ -11,27 +11,51 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void signOut(){
+  void signOut() {
     FirebaseAuth.instance.signOut();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBarDrawer(),
-      appBar: AppBar(
-        actions: [IconButton(
-          onPressed: signOut,
-          icon: Icon(Icons.logout),)],
-        centerTitle: true,
-        title: Text('WELCOME'),
-      ),
-      body: Center(
-        child: TextButton(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => IntroductionScreen())),
-          child: Text(
-            'log out',
-            style: TextStyle(fontSize: 28),
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        drawer: NavBarDrawer(),
+        appBar: AppBar(
+         bottom: const TabBar(
+          indicatorColor: Colors.blue,
+      splashBorderRadius: BorderRadius.vertical(bottom: Radius.circular(30),top: Radius.circular(30)),
+              tabs: <Widget>[
+                Tab(
+                  
+                  text: 'chats',
+                ),
+                Tab(
+                 text: 'status',
+                ),
+                Tab(
+                  text: 'calls',
+                ),
+              ],
+            ),
+          actions: [
+            IconButton(
+              onPressed: signOut,
+              icon: Icon(Icons.logout),
+            )
+          ],
+          centerTitle: true,
+          title: Text('WELCOME'),
+        ),
+        body: Center(
+          child: TextButton(
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => IntroductionScreen())),
+            child: Text(
+              'log out',
+              style: TextStyle(fontSize: 28),
+            ),
           ),
         ),
       ),

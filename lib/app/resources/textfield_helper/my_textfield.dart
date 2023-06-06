@@ -15,14 +15,13 @@ class MyTextField extends StatelessWidget {
   final bool obscureText;
   final String hintText;
   TextEditingController? controller;
- 
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
-       controller:controller ,
+        controller: controller,
         textAlign: TextAlign.center,
         obscureText: obscureText,
         keyboardType: keyboardType,
