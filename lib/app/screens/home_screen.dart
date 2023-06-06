@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
           centerTitle: true,
-          title: Text('WELCOME'),
+          title: Text('FLASH CHAT'),
         ),
         body: Center(
           child: TextButton(

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/buttons/register_button.dart';
+import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +23,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void signIn() async {
     try {
-      setState(() {});
+      FocusScope.of(context).unfocus();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
+          email: usernameController.text, password: passwordController.text).then((value) => Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen())));
     } on FirebaseAuthException catch (e) {
       displayMessage(e.code);
     }
