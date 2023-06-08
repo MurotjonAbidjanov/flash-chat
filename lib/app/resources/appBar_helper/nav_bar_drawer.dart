@@ -5,6 +5,10 @@ class NavBarDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer();
+    return Drawer(
+      child: Column(
+        children: [],
+      ),
+    );
   }
 }

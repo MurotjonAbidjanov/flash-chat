@@ -69,9 +69,9 @@ class _RegisterScreen extends State<RegisterScreen> {
             MyTextField(
               controller: usernameController,
               keyboardType: TextInputType.emailAddress,
-              labelText: 'username',
+              labelText: 'email',
               obscureText: false,
-              hintText: 'enter your username',
+              hintText: 'enter your email',
             ),
             //password
             cSizedBox50,

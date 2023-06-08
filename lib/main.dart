@@ -15,10 +15,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
+    return const MaterialApp(
+      // theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: const Auth(),
+      home:  Auth(),
     );
   }
 }

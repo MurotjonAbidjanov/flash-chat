@@ -1,3 +1,4 @@
+import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomTitle extends StatelessWidget {
@@ -17,7 +18,7 @@ class BottomTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+          style:const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: cWhiteColor),
         ),
         TextButton(
           onPressed: onPressed,
