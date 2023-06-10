@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/buttons/register_button.dart';
@@ -18,21 +19,32 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreen extends State<RegisterScreen> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+
+  final nameController = TextEditingController();
+
+  final users = FirebaseFirestore.instance.collection('users');
+
+  Future<void> addUser() {
+    return users
+        .add({
+          'name': nameController.text,
+          'email': usernameController.text,
+          // 'id':id,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 
   void signUp() async {
     FocusScope.of(context).unfocus();
     // make sure password match
-    if (passwordController != confirmPasswordController) {
-      // display error
-      displayMessage('Passwords don\'t match');
-      return;
-    }
+
 // creating user
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
+          .then((value) => {addUser()})
           .then((value) => Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomeScreen())));
     } on FirebaseException catch (e) {
@@ -67,6 +79,16 @@ class _RegisterScreen extends State<RegisterScreen> {
               height: 50,
             ),
             MyTextField(
+              controller: nameController,
+              keyboardType: TextInputType.name,
+              labelText: 'Name',
+              obscureText: false,
+              hintText: 'enter your name',
+            ),
+            // Login button
+
+            cSizedBox50,
+            MyTextField(
               controller: usernameController,
               keyboardType: TextInputType.emailAddress,
               labelText: 'email',
@@ -84,13 +106,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             ),
             // mobile number
             cSizedBox50,
-            MyTextField(
-              controller: confirmPasswordController,
-              keyboardType: TextInputType.visiblePassword,
-              labelText: 'Confirm password',
-              obscureText: true,
-              hintText: 'enter to your confirm password',
-            ),
+
             // Login button
             const Expanded(child: cSizedBox50),
             RegisterButton(

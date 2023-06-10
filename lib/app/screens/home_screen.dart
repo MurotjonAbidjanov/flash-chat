@@ -50,16 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           title: Text('FLASH CHAT'),
         ),
-        body: Center(
-          child: TextButton(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => IntroductionScreen())),
-            child: Text(
-              'log out',
-              style: TextStyle(fontSize: 28),
-            ),
-          ),
-        ),
+        body: Center(),
       ),
     );
   }
