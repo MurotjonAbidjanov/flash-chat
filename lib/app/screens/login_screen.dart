@@ -24,8 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
   void signIn() async {
     try {
       FocusScope.of(context).unfocus();
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text).then((value) => Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen())));
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: usernameController.text, password: passwordController.text)
+          .then((value) => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreen())));
     } on FirebaseAuthException catch (e) {
       displayMessage(e.code);
     }
@@ -85,6 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => RegisterScreen())),
             ),
+            // Row(
+            //   children: [
+            //     InkWell(child: Image.asset('assets/images/logo.png',scale: 10,))
+            //   ],
+            // )
           ],
         ),
       ),

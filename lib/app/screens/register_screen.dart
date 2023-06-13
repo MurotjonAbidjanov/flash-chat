@@ -48,7 +48,11 @@ class _RegisterScreen extends State<RegisterScreen> {
           .then((value) => Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomeScreen())));
     } on FirebaseException catch (e) {
-      displayMessage(e.code);
+      if (e.code == 'weak-password') {
+        displayMessage('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        displayMessage('The account already exists for that email.');
+      }
     }
   }
 
@@ -56,7 +60,10 @@ class _RegisterScreen extends State<RegisterScreen> {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(message),
+              title: Text(
+                message,
+                style: const TextStyle(color: cWhiteColor),
+              ),
             ));
   }
 
