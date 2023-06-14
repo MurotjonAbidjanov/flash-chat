@@ -82,9 +82,16 @@ class _RegisterScreen extends State<RegisterScreen> {
               definition: 'Fill up your details to register.',
             ),
             //email
-            const SizedBox(
-              height: 50,
+            cSizedBox20,
+            const Hero(
+              tag: 'logo',
+              child: Text(
+                '⚡',
+                style: TextStyle(fontSize: 80),
+              ),
             ),
+            cSizedBox20,
+
             MyTextField(
               controller: nameController,
               keyboardType: TextInputType.name,

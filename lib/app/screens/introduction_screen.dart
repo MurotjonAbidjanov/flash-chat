@@ -27,9 +27,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  '⚡',
-                  style: TextStyle(fontSize: 40),
+                const Hero(
+                  tag: 'logo',
+                  child: Text(
+                    '⚡',
+                    style: TextStyle(fontSize: 40),
+                  ),
                 ),
                 DefaultTextStyle(
                   style: const TextStyle(

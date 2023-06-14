@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/app/constants/constants.dart';
@@ -58,8 +59,17 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //email
             const SizedBox(
-              height: 100,
+              height: 50,
             ),
+            const Hero(
+              tag: 'logo',
+              child: Text(
+                '⚡',
+                style: TextStyle(fontSize: 80),
+              ),
+            ),
+
+            cSizedBox50,
             MyTextField(
               controller: usernameController,
               keyboardType: TextInputType.emailAddress,
