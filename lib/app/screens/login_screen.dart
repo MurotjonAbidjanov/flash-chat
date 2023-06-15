@@ -1,6 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
@@ -13,6 +11,8 @@ import '../resources/textfield_helper/my_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
+
+  static const String route = 'log in';
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -28,8 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
-          .then((value) => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen())));
+          .then((value) => Navigator.pushNamed(context, HomeScreen.route));
     } on FirebaseAuthException catch (e) {
       displayMessage(e.code);
     }

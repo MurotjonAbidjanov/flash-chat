@@ -8,7 +8,7 @@ import '../resources/buttons/register_button.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
-
+  static const String route = 'welcome page';
   @override
   State<IntroductionScreen> createState() => _IntroductionScreenState();
 }
@@ -59,8 +59,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               height: 40,
             ),
             RegisterButton(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen())),
+              onTap: () => Navigator.pushNamed(context, LoginScreen.route),
               color: cLoginColor,
               title: 'Login',
             ),
@@ -70,8 +69,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               height: 25,
             ),
             RegisterButton(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterScreen())),
+              onTap: () => Navigator.pushNamed(context, RegisterScreen.route),
               color: cRegisterColor,
               title: 'Register',
             )

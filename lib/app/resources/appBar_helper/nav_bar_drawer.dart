@@ -97,7 +97,8 @@ Widget buildMenuItems(BuildContext context) => Container(
             onTap: () {},
           ),
           const Divider(
-            color: Colors.black54,
+            color: Colors.black87,
+           height: 5,
           ),
           ListTile(
             leading: const Icon(

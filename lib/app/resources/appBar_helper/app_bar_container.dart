@@ -29,10 +29,7 @@ class AppBarContainer extends StatelessWidget {
               top: 10,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const IntroductionScreen()));
+                  Navigator.pushNamed(context, IntroductionScreen.route);
                 },
                 icon: const Icon(
                   Icons.arrow_back,

@@ -4,16 +4,19 @@ import 'package:flash_chat/app/resources/appBar_helper/nav_bar_drawer.dart';
 import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../resources/home_screen_helper/home_page_body_container.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
+  static const String route = 'home page';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   void signOut() {
-    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut().then(
+        (value) => Navigator.pushNamed(context, IntroductionScreen.route));
   }
 
   @override
@@ -22,9 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
       initialIndex: 1,
       length: 3,
       child: Scaffold(
+        backgroundColor: cDarkBlue,
         drawer: const NavBarDrawer(),
         appBar: AppBar(
-          backgroundColor: cRegisterColor,
+          elevation: 0,
+          backgroundColor: cDarkBlue,
           bottom: const TabBar(
             indicatorColor: cWhiteColor,
             splashBorderRadius: BorderRadius.vertical(
@@ -50,7 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           title: Text('FLASH CHAT'),
         ),
-        body: Center(),
+        body: Column(
+          children: [
+            HomePageBodyContainer(
+              height: 500,
+              color: Colors.white70,
+            )
+          ],
+        ),
       ),
     );
   }

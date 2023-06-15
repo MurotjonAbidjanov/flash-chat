@@ -11,7 +11,7 @@ import '../resources/textfield_helper/my_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
-
+static const String route = 'sign up';
   @override
   _RegisterScreen createState() => _RegisterScreen();
 }
@@ -45,8 +45,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           .createUserWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
           .then((value) => {addUser()})
-          .then((value) => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen())));
+          .then((value) => Navigator.pushNamed(context, HomeScreen.route));
     } on FirebaseException catch (e) {
       if (e.code == 'weak-password') {
         displayMessage('The password provided is too weak.');
@@ -131,8 +130,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                 title: 'Already have an account ',
                 titleButton: 'Login',
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                  Navigator.pushNamed(context, LoginScreen.route);
                 }),
           ],
         ),

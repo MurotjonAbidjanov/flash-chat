@@ -11,3 +11,5 @@ const cSizedBox50 = SizedBox(
 );
 
 const cWhiteColor = Color(0xffffffff);
+
+final cDarkBlue = Colors.blue[900];
