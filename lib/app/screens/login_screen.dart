@@ -42,67 +42,71 @@ class _LoginScreenState extends State<LoginScreen> {
             ));
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: cLoginColor.withOpacity(0.6),
-        body: Column(
-          children: [
-            // AppBar
-            AppBarContainer(
-              label: 'Login',
-              color: cLoginColor,
-              definition: 'Enter your parametrs to continue',
-            ),
-            //email
-            const SizedBox(
-              height: 50,
-            ),
-            const Hero(
-              tag: 'logo',
-              child: Text(
-                '⚡',
-                style: TextStyle(fontSize: 80),
+        body: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              // AppBar
+              AppBarContainer(
+                label: 'Login',
+                color: cLoginColor,
+                definition: 'Enter your parametrs to continue',
               ),
-            ),
+              //email
+              const SizedBox(
+                height: 50,
+              ),
+              const Hero(
+                tag: 'logo',
+                child: Text(
+                  '⚡',
+                  style: TextStyle(fontSize: 80),
+                ),
+              ),
 
-            cSizedBox50,
-            MyTextField(
-              controller: usernameController,
-              keyboardType: TextInputType.emailAddress,
-              labelText: 'email',
-              obscureText: false,
-              hintText: 'enter your email',
-            ),
-            //password
-            cSizedBox50,
-            MyTextField(
-              controller: passwordController,
-              keyboardType: TextInputType.visiblePassword,
-              labelText: 'password',
-              obscureText: true,
-              hintText: 'enter your password',
-            ),
-            // Login button
-            const Expanded(child: cSizedBox50),
-            RegisterButton(
-                title: 'Login', color: Colors.grey[900], onTap: signIn),
-            cSizedBox20,
-            // Text Don't have an account
-            BottomTitle(
-              title: 'Don\'t have an account',
-              titleButton: 'Register',
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterScreen())),
-            ),
-            // Row(
-            //   children: [
-            //     InkWell(child: Image.asset('assets/images/logo.png',scale: 10,))
-            //   ],
-            // )
-          ],
+              cSizedBox50,
+              MyTextField(
+                controller: usernameController,
+                keyboardType: TextInputType.emailAddress,
+                labelText: 'email',
+                obscureText: false,
+                hintText: 'enter your email',
+              ),
+              //password
+              cSizedBox50,
+              MyTextField(
+                controller: passwordController,
+                keyboardType: TextInputType.visiblePassword,
+                labelText: 'password',
+                obscureText: true,
+                hintText: 'enter your password',
+              ),
+              // Login button
+              const Expanded(child: cSizedBox50),
+              RegisterButton(
+                  title: 'Login', color: Colors.grey[900], onTap: signIn),
+              cSizedBox20,
+              // Text Don't have an account
+              BottomTitle(
+                title: 'Don\'t have an account',
+                titleButton: 'Register',
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterScreen())),
+              ),
+              // Row(
+              //   children: [
+              //     InkWell(child: Image.asset('assets/images/logo.png',scale: 10,))
+              //   ],
+              // )
+            ],
+          ),
         ),
       ),
     );

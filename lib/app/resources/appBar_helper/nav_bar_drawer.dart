@@ -1,9 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class NavBarDrawer extends StatelessWidget {
+import '../../screens/introduction_screen.dart';
+
+class NavBarDrawer extends StatefulWidget {
   const NavBarDrawer({Key? key}) : super(key: key);
 
+  @override
+  State<NavBarDrawer> createState() => _NavBarDrawerState();
+}
+
+class _NavBarDrawerState extends State<NavBarDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -98,7 +106,7 @@ Widget buildMenuItems(BuildContext context) => Container(
           ),
           const Divider(
             color: Colors.black87,
-           height: 5,
+            height: 5,
           ),
           ListTile(
             leading: const Icon(
@@ -122,6 +130,21 @@ Widget buildMenuItems(BuildContext context) => Container(
             ),
             onTap: () {},
           ),
+          const SizedBox(
+            height: 150,
+          ),
+          ListTile(
+              title: Center(
+                child: Text(
+                  'log out'.toUpperCase(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w700, color: Colors.red),
+                ),
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((value) =>
+                    Navigator.pushNamed(context, IntroductionScreen.route));
+              }),
         ],
       ),
     );

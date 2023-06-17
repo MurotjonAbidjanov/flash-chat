@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/constants.dart';
 import 'package:flash_chat/app/resources/appBar_helper/nav_bar_drawer.dart';
-import 'package:flash_chat/app/screens/introduction_screen.dart';
-import 'package:flutter/material.dart';
 
-import '../resources/home_screen_helper/home_page_body_container.dart';
+import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,11 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void signOut() {
-    FirebaseAuth.instance.signOut().then(
-        (value) => Navigator.pushNamed(context, IntroductionScreen.route));
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -46,23 +38,29 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          actions: [
-            IconButton(
-              onPressed: signOut,
-              icon: Icon(Icons.logout),
-            )
-          ],
           centerTitle: true,
           title: Text('FLASH CHAT'),
         ),
-        body: Column(
-          children: [
-            HomePageBodyContainer(
-              height: 500,
-              color: Colors.white70,
-            )
-          ],
-        ),
+        body: TabBarView(children: [
+          Container(
+            child: Text("data"),
+            decoration: BoxDecoration(
+              color: cWhiteColor,
+            ),
+          ),
+          Container(
+            child: Text("data"),
+            decoration: BoxDecoration(
+              color: cWhiteColor,
+            ),
+          ),
+          Container(
+            child: Text("data"),
+            decoration: BoxDecoration(
+              color: cWhiteColor,
+            ),
+          ),
+        ]),
       ),
     );
   }
