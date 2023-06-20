@@ -1,4 +1,5 @@
-import 'package:flash_chat/app/constants/constants.dart';
+
+import 'package:flash_chat/app/constants/color_const/color_const.dart';
 import 'package:flutter/material.dart';
 
 class BottomTitle extends StatelessWidget {

@@ -1,9 +1,11 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flash_chat/app/constants/constants.dart';
+
 import 'package:flash_chat/app/screens/login_screen.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/color_const/color_const.dart';
+import '../constants/widget_const/widget_const.dart';
 import '../resources/buttons/register_button.dart';
 
 class IntroductionScreen extends StatefulWidget {

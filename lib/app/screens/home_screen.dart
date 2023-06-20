@@ -1,4 +1,5 @@
-import 'package:flash_chat/app/constants/constants.dart';
+import 'package:flash_chat/app/constants/color_const/color_const.dart';
+import 'package:flash_chat/app/constants/textStyle_const/text_style_const.dart';
 import 'package:flash_chat/app/resources/appBar_helper/nav_bar_drawer.dart';
 
 import 'package:flutter/material.dart';
@@ -13,55 +14,32 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 3,
+    return SafeArea(
       child: Scaffold(
-        backgroundColor: cDarkBlue,
-        drawer: const NavBarDrawer(),
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: cDarkBlue,
-          bottom: const TabBar(
-            indicatorColor: cWhiteColor,
-            splashBorderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(30), top: Radius.circular(30)),
-            tabs: [
-              Tab(
-                text: 'chats',
-              ),
-              Tab(
-                text: 'status',
-              ),
-              Tab(
-                text: 'calls',
-              ),
-            ],
+          backgroundColor: cRegisterColor,
+          drawer: const NavBarDrawer(),
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: cRegisterColor,
+            centerTitle: true,
+            title: const Text('FLASH CHAT'),
           ),
-          centerTitle: true,
-          title: Text('FLASH CHAT'),
-        ),
-        body: TabBarView(children: [
-          Container(
-            child: Text("data"),
-            decoration: BoxDecoration(
+          body: Container(
+            height: double.infinity,
+            width: 420,
+            decoration: const BoxDecoration(
               color: cWhiteColor,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(50),
+              ),
             ),
-          ),
-          Container(
-            child: Text("data"),
-            decoration: BoxDecoration(
-              color: cWhiteColor,
+            child: const Center(
+              child: Text(
+                "data",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Container(
-            child: Text("data"),
-            decoration: BoxDecoration(
-              color: cWhiteColor,
-            ),
-          ),
-        ]),
-      ),
+          )),
     );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flash_chat/app/constants/constants.dart';
+import 'package:flash_chat/app/constants/textStyle_const/text_style_const.dart';
 import 'package:flutter/material.dart';
-
+import '../../constants/color_const/color_const.dart';
+import '../../constants/widget_const/widget_const.dart';
 import '../../screens/introduction_screen.dart';
 
 class NavBarDrawer extends StatefulWidget {
@@ -29,18 +30,22 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
 }
 
 Widget buildHeader(BuildContext context) => Container(
-      color: cRegisterColor,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/drawerAppBar.jpeg'),
+            fit: BoxFit.cover),
+      ),
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       child: const Column(
         children: [
           CircleAvatar(
-            radius: 52,
+            radius: 60,
             backgroundImage: AssetImage(
               'assets/images/mers.webp',
             ),
           ),
           SizedBox(
-            height: 12,
+            height: 10,
           ),
           Text(
             'mr.X',
@@ -63,82 +68,79 @@ Widget buildMenuItems(BuildContext context) => Container(
           ListTile(
             leading: const Icon(
               Icons.home_outlined,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
-            title: Text(
-              'home'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            title: Text('home'.toUpperCase(), style: cDrawerButtonsStyle),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(
               Icons.favorite,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
             title: Text(
               'favorites'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
+              style: cDrawerButtonsStyle,
             ),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(
               Icons.workspaces_outline,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
             title: Text(
               'workFlow'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
+              style: cDrawerButtonsStyle,
             ),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(
               Icons.update,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
             title: Text(
               'Updates'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
+              style: cDrawerButtonsStyle,
             ),
             onTap: () {},
           ),
           const Divider(
-            color: Colors.black87,
+            color: cRegisterColor,
             height: 5,
           ),
           ListTile(
             leading: const Icon(
               Icons.account_tree_outlined,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
             title: Text(
               'plugins'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
+              style: cDrawerButtonsStyle,
             ),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(
               Icons.notifications,
-              color: Colors.black,
+              color: cRegisterColor,
             ),
             title: Text(
               'notifications'.toUpperCase(),
-              style: const TextStyle(fontWeight: FontWeight.w700),
+              style: cDrawerButtonsStyle,
             ),
             onTap: () {},
           ),
           const SizedBox(
-            height: 150,
+            height: 140,
           ),
           ListTile(
               title: Center(
                 child: Text(
                   'log out'.toUpperCase(),
                   style: const TextStyle(
-                      fontWeight: FontWeight.w700, color: Colors.red),
+                      fontWeight: FontWeight.w700, color: Color(0xfffa1000)),
                 ),
               ),
               onTap: () {

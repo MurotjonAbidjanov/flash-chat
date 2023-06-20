@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../constants/color_const/color_const.dart';
 
-import '../../constants/constants.dart';
 
 class MyTextField extends StatelessWidget {
   MyTextField(
@@ -9,14 +9,17 @@ class MyTextField extends StatelessWidget {
       required this.obscureText,
       required this.hintText,
       this.keyboardType,
-      this.controller,this.validator
-      });
+      this.controller,
+      this.validator,
+      this.suffixIcon});
+
   final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
   final String hintText;
   TextEditingController? controller;
   String? Function(String?)? validator;
+  Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class MyTextField extends StatelessWidget {
           labelStyle: const TextStyle(color: cWhiteColor, fontSize: 20),
           hintText: hintText,
           hintStyle: const TextStyle(fontSize: 18, color: cWhiteColor),
+          suffixIcon: suffixIcon,
         ),
       ),
     );

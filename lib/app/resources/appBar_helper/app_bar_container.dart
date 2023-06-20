@@ -1,7 +1,6 @@
 import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/constants.dart';
+import '../../constants/color_const/color_const.dart';
 
 class AppBarContainer extends StatelessWidget {
   const AppBarContainer({
