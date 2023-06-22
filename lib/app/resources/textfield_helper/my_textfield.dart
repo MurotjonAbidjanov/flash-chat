@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import '../../constants/color_const/color_const.dart';
 
-
 class MyTextField extends StatelessWidget {
-  MyTextField(
-      {super.key,
-      required this.labelText,
-      required this.obscureText,
-      required this.hintText,
-      this.keyboardType,
-      this.controller,
-      this.validator,
-      this.suffixIcon});
+  MyTextField({
+    super.key,
+    required this.labelText,
+    required this.obscureText,
+    required this.hintText,
+    this.keyboardType,
+    this.controller,
+    this.validator,
+    this.suffixIcon,
+  });
 
   final TextInputType? keyboardType;
   final String labelText;

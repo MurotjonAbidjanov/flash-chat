@@ -1,7 +1,5 @@
 import 'package:flash_chat/app/constants/color_const/color_const.dart';
-import 'package:flash_chat/app/constants/textStyle_const/text_style_const.dart';
 import 'package:flash_chat/app/resources/appBar_helper/nav_bar_drawer.dart';
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
