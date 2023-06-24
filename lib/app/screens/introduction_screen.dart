@@ -49,6 +49,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       ),
                     ],
                     repeatForever: true,
+                   
+                    
                   ),
                 ),
                 const SizedBox(

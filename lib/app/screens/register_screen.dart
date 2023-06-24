@@ -4,6 +4,7 @@ import 'package:flash_chat/app/resources/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
 import '../resources/appBar_helper/app_bar_container.dart';
@@ -79,13 +80,7 @@ class _RegisterScreen extends State<RegisterScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: cRegisterColor.withOpacity(0.6),
-        body: isLoading == true
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: cGreyColor,
-                ),
-              )
-            : Form(
+        body: isLoading == true ? Center(child: LoadingAnimationWidget.hexagonDots(color: cGreyColor, size: 70)) : Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 key: _formKey,
                 child: SingleChildScrollView(
