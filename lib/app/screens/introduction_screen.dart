@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
-import '../resources/buttons/register_button.dart';
+import '../widgets/buttons/register_button.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});

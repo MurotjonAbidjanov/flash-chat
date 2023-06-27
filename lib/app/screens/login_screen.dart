@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flash_chat/app/resources/buttons/register_button.dart';
+import 'package:flash_chat/app/widgets/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +8,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
-import '../resources/appBar_helper/app_bar_container.dart';
-import '../resources/buttons/bottom_title.dart';
-import '../resources/textfield_helper/my_textfield.dart';
+import '../widgets/appBar_helper/app_bar_container.dart';
+import '../widgets/buttons/bottom_title.dart';
+import '../widgets/textfield_helper/my_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);

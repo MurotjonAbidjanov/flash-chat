@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flash_chat/app/resources/auth/auth.dart';
+import 'package:flash_chat/app/widgets/auth/auth.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
