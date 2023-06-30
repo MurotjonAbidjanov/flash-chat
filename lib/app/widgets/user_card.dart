@@ -22,7 +22,12 @@ class _UserCardState extends State<UserCard> {
           child: ListTile(
             // user profile picture
             leading: CircleAvatar(
-                backgroundImage: Image.asset('assets/images/mers.webp').image),
+              backgroundColor: cRegisterColor,
+              radius: 25,
+              child: CircleAvatar(
+                radius: 23,
+                  backgroundImage: Image.asset('assets/images/mers.webp').image),
+            ),
 
             // user name
             title: const Text('Demo User'),
