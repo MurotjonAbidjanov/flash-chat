@@ -16,6 +16,8 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomRight: Radius.circular(40))),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -30,32 +32,52 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
 }
 
 Widget buildHeader(BuildContext context) => Container(
+      height: MediaQuery.of(context).size.height * .27,
       decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage('assets/images/drawerAppBar.jpeg'),
             fit: BoxFit.cover),
       ),
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: const Column(
+      child: Stack(
         children: [
-          CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(
-              'assets/images/mers.webp',
+          const Center(
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: AssetImage(
+                    'assets/images/mers.webp',
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'mr.X',
+                  style: TextStyle(fontSize: 28, color: cWhiteColor),
+                ),
+                Text(
+                  'test@gmail.com',
+                  style: TextStyle(fontSize: 16, color: cWhiteColor),
+                ),
+                cSizedBox20
+              ],
             ),
           ),
-          SizedBox(
-            height: 10,
+          Positioned(
+            top: 100,
+            right: 80,
+            child: FloatingActionButton.small(
+              backgroundColor: cWhiteColor,
+              onPressed: () {},
+              child: const Icon(
+                Icons.camera_alt,
+                color: cRegisterColor,
+                size: 20,
+              ),
+            ),
           ),
-          Text(
-            'mr.X',
-            style: TextStyle(fontSize: 28, color: cWhiteColor),
-          ),
-          Text(
-            'test@gmail.com',
-            style: TextStyle(fontSize: 16, color: cWhiteColor),
-          ),
-          cSizedBox20
         ],
       ),
     );
@@ -86,11 +108,11 @@ Widget buildMenuItems(BuildContext context) => Container(
           ),
           ListTile(
             leading: const Icon(
-              Icons.workspaces_outline,
+              Icons.person,
               color: cRegisterColor,
             ),
             title: Text(
-              'workFlow'.toUpperCase(),
+              'edit profile'.toUpperCase(),
               style: cDrawerButtonsStyle,
             ),
             onTap: () {},
