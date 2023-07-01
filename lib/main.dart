@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flash_chat/app/widgets/auth/auth.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/introduction_screen.dart';
@@ -19,18 +20,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       // theme: ThemeData.dark(),
       initialRoute: Auth.route,
       routes: {
-        LoginScreen.route:(context) => LoginScreen(), 
-        RegisterScreen.route:(context) => RegisterScreen(), 
-        IntroductionScreen.route:(context) => const IntroductionScreen(), 
-        HomeScreen.route:(context) => const HomeScreen(), 
-        Auth.route:(context) => const Auth(),
+        LoginScreen.route: (context) => LoginScreen(),
+        RegisterScreen.route: (context) => RegisterScreen(),
+        IntroductionScreen.route: (context) => const IntroductionScreen(),
+        HomeScreen.route: (context) => const HomeScreen(),
+        Auth.route: (context) => const Auth(),
       },
       debugShowCheckedModeBanner: false,
-     
     );
   }
 }

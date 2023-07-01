@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/textStyle_const/text_style_const.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../constants/color_const/color_const.dart';
 import '../../constants/widget_const/widget_const.dart';
 import '../../screens/introduction_screen.dart';
@@ -31,56 +33,100 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
   }
 }
 
-Widget buildHeader(BuildContext context) => Container(
-      height: MediaQuery.of(context).size.height * .27,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/images/drawerAppBar.jpeg'),
-            fit: BoxFit.cover),
-      ),
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: Stack(
-        children: [
-          const Center(
-            child: Column(
+Widget buildHeader(BuildContext context) {
+  late File? imageFile;
+
+  void selectImage(ImageSource source) async {
+  XFile? pickedFile = await ImagePicker().pickImage(source: source);
+  // if(pickedFile != null)
+  }
+
+  void cropImage() async {}
+
+  void showPhotoOptions() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Upload Profile Picture'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage(
-                    'assets/images/mers.webp',
-                  ),
+                ListTile(
+                  onTap: () {
+                    selectImage(ImageSource.gallery);
+                  },
+                  leading: const Icon(Icons.photo_album),
+                  title: const Text("Select from Gallery"),
                 ),
-                SizedBox(
-                  height: 10,
+                ListTile(
+                  onTap: () {
+                    selectImage(ImageSource.camera);
+                  },
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text("Take a photo"),
                 ),
-                Text(
-                  'mr.X',
-                  style: TextStyle(fontSize: 28, color: cWhiteColor),
-                ),
-                Text(
-                  'test@gmail.com',
-                  style: TextStyle(fontSize: 16, color: cWhiteColor),
-                ),
-                cSizedBox20
               ],
             ),
-          ),
-          Positioned(
-            top: 100,
-            right: 80,
-            child: FloatingActionButton.small(
-              backgroundColor: cWhiteColor,
-              onPressed: () {},
-              child: const Icon(
-                Icons.camera_alt,
-                color: cRegisterColor,
-                size: 20,
+          );
+        });
+  }
+
+  return Container(
+    height: MediaQuery.of(context).size.height * .27,
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage('assets/images/drawerAppBar.jpeg'),
+          fit: BoxFit.cover),
+    ),
+    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+    child: Stack(
+      children: [
+        Positioned(
+          top: MediaQuery.of(context).size.height * .01,
+          right: MediaQuery.of(context).size.width * 0.2,
+          child: const Column(
+            children: [
+              CircleAvatar(
+                radius: 70,
+                backgroundImage: AssetImage(
+                  'assets/images/mers.webp',
+                ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'mr.X',
+                style: TextStyle(fontSize: 28, color: cWhiteColor),
+              ),
+              Text(
+                'test@gmail.com',
+                style: TextStyle(fontSize: 16, color: cWhiteColor),
+              ),
+              cSizedBox20
+            ],
+          ),
+        ),
+        Positioned(
+          top: 100,
+          right: 80,
+          child: FloatingActionButton.small(
+            backgroundColor: cWhiteColor,
+            onPressed: () {
+              showPhotoOptions();
+            },
+            child: const Icon(
+              Icons.camera_alt,
+              color: cRegisterColor,
+              size: 20,
             ),
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  );
+}
 
 Widget buildMenuItems(BuildContext context) => Container(
       padding: const EdgeInsets.all(16),

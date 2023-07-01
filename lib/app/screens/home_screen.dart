@@ -1,4 +1,5 @@
 import 'package:flash_chat/app/constants/color_const/color_const.dart';
+import 'package:flash_chat/app/screens/chats/chat.dart';
 
 import 'package:flash_chat/app/widgets/appBar_helper/nav_bar_drawer.dart';
 import 'package:flash_chat/app/widgets/user_avatar/user_avatar.dart';
@@ -84,10 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           scrollDirection: Axis.horizontal,
                           children: [
                             userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
-                            userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
-                            userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
-                            userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
-                            userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
+                            //   userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
+                            //   userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
+                            //   userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
+                            //   userAvatar.buildUserAvatar('Mr.X', 'mers.webp'),
                           ],
                         ),
                       ),
@@ -113,9 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: EdgeInsets.only(
                           top: MediaQuery.of(context).size.height * .01),
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 16,
+                      itemCount: 1,
                       itemBuilder: ((context, index) {
-                        return const UserCard();
+                        return UserCard(
+                          onTap: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=>Chat()));
+                          },
+                        );
                       })),
                 ),
               ),

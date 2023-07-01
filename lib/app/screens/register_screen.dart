@@ -5,6 +5,7 @@ import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:uuid/uuid.dart';
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
 import '../widgets/appBar_helper/app_bar_container.dart';
@@ -27,13 +28,14 @@ class _RegisterScreen extends State<RegisterScreen> {
   bool passToggle = true;
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  final uid = const Uuid().v4;
 
   Future<void> addUser() {
     return users
         .add({
           'name': nameController.text,
           'email': usernameController.text,
-          // 'id':id,
+          'id': uid,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
@@ -80,7 +82,11 @@ class _RegisterScreen extends State<RegisterScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: cRegisterColor.withOpacity(0.6),
-        body: isLoading == true ? Center(child: LoadingAnimationWidget.hexagonDots(color: cGreyColor, size: 70)) : Form(
+        body: isLoading == true
+            ? Center(
+                child: LoadingAnimationWidget.hexagonDots(
+                    color: cGreyColor, size: 70))
+            : Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -185,7 +191,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                           }
                           return null;
                         },
-                        
                       ),
                       // mobile number
                       cSizedBox50,
