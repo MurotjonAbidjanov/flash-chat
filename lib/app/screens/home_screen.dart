@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: ((context, index) {
                         return UserCard(
                           onTap: () {
-                           Navigator.push(context, MaterialPageRoute(builder: (context)=>Chat()));
+                           Navigator.pushNamed(context, Chat.route);
                           },
                         );
                       })),

@@ -6,7 +6,7 @@ class MyTextField extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.obscureText,
-    required this.hintText,
+    this.hintText,
     this.keyboardType,
     this.controller,
     this.validator,
@@ -16,7 +16,7 @@ class MyTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final String labelText;
   final bool obscureText;
-  final String hintText;
+  final String? hintText;
   TextEditingController? controller;
   String? Function(String?)? validator;
   Widget? suffixIcon;

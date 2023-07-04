@@ -8,6 +8,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:uuid/uuid.dart';
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
+import '../models/user_model.dart';
 import '../widgets/appBar_helper/app_bar_container.dart';
 import '../widgets/buttons/bottom_title.dart';
 import '../widgets/textfield_helper/my_textfield.dart';
@@ -31,12 +32,11 @@ class _RegisterScreen extends State<RegisterScreen> {
   final uid = const Uuid().v4;
 
   Future<void> addUser() {
+     final userModel = UserModel(email: usernameController.text, id: uid.toString(), name: nameController.text);
     return users
-        .add({
-          'name': nameController.text,
-          'email': usernameController.text,
-          'id': uid,
-        })
+        .add(
+          userModel.toJson()
+        )
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -71,7 +71,7 @@ class _RegisterScreen extends State<RegisterScreen> {
         builder: (context) => AlertDialog(
               title: Text(
                 message,
-                style: const TextStyle(color: cWhiteColor),
+                style: const TextStyle(color: Colors.black54),
               ),
             ));
   }
@@ -89,128 +89,125 @@ class _RegisterScreen extends State<RegisterScreen> {
             : Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 key: _formKey,
-                child: SingleChildScrollView(
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
-                  reverse: true,
-                  child: Column(
-                    children: [
-                      // AppBar
-                      const AppBarContainer(
-                        label: 'Register',
-                        color: cRegisterColor,
-                        definition: 'Fill up your details to register.',
-                      ),
-                      //email
-                      cSizedBox50,
-                      const Hero(
+                child: Column(
+                  children: [
+                    // AppBar
+                    const AppBarContainer(
+                      label: 'Register',
+                      color: cRegisterColor,
+                      definition: 'Fill up your details to register.',
+                    ),
+                    //email
+                    cSizedBox10,
+                    const Flexible(
+                      child: Hero(
                         tag: 'logo',
                         child: Text(
                           '⚡',
                           style: TextStyle(fontSize: 80),
                         ),
                       ),
-                      cSizedBox50,
-
-                      MyTextField(
-                        controller: nameController,
-                        keyboardType: TextInputType.name,
-                        labelText: 'Name',
-                        obscureText: false,
-                        hintText: 'enter your name',
-                        validator: (name) {
-                          if (name!.isEmpty) {
-                            return 'Enter your name';
-                          }
-                          return null;
+                    ),
+                    cSizedBox10,
+                    
+                    MyTextField(
+                      controller: nameController,
+                      keyboardType: TextInputType.name,
+                      labelText: 'Name',
+                      obscureText: false,
+                      hintText: 'enter your name',
+                      validator: (name) {
+                        if (name!.isEmpty) {
+                          return 'Enter your name';
+                        }
+                        return null;
+                      },
+                    ),
+                    // Login button
+                    
+                    cSizedBox20,
+                    MyTextField(
+                      controller: usernameController,
+                      keyboardType: TextInputType.emailAddress,
+                      labelText: 'email',
+                      obscureText: false,
+                      hintText: 'enter your email',
+                      validator: (value) {
+                        bool emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value!);
+                        if (value.isEmpty) {
+                          return 'Enter your email';
+                        }
+                        if (!emailValid) {
+                          return 'Enter valid email';
+                        }
+                        return null;
+                      },
+                    ),
+                    //password
+                    cSizedBox20,
+                    MyTextField(
+                      controller: passwordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      labelText: 'password',
+                      obscureText: passToggle,
+                      hintText: 'enter your password',
+                      validator: (password) {
+                        if (password!.isEmpty) {
+                          return 'Enter your password';
+                        } else if (passwordController.text.length < 6) {
+                          return 'Password should be more than 6 characters';
+                        }
+                        return null;
+                      },
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            passToggle = !passToggle;
+                          });
                         },
-                      ),
-                      // Login button
-
-                      cSizedBox30,
-                      MyTextField(
-                        controller: usernameController,
-                        keyboardType: TextInputType.emailAddress,
-                        labelText: 'email',
-                        obscureText: false,
-                        hintText: 'enter your email',
-                        validator: (value) {
-                          bool emailValid = RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value!);
-                          if (value.isEmpty) {
-                            return 'Enter your email';
-                          }
-                          if (!emailValid) {
-                            return 'Enter valid email';
-                          }
-                          return null;
-                        },
-                      ),
-                      //password
-                      cSizedBox30,
-                      MyTextField(
-                        controller: passwordController,
-                        keyboardType: TextInputType.visiblePassword,
-                        labelText: 'password',
-                        obscureText: passToggle,
-                        hintText: 'enter your password',
-                        validator: (password) {
-                          if (password!.isEmpty) {
-                            return 'Enter your password';
-                          } else if (passwordController.text.length < 6) {
-                            return 'Password should be more than 6 characters';
-                          }
-                          return null;
-                        },
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              passToggle = !passToggle;
-                            });
-                          },
-                          child: Icon(
-                            passToggle
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: cWhiteColor,
-                          ),
+                        child: Icon(
+                          passToggle
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: cWhiteColor,
                         ),
                       ),
-                      // mobile number
-                      cSizedBox30,
-                      MyTextField(
-                        controller: confirmPasswordController,
-                        keyboardType: TextInputType.visiblePassword,
-                        labelText: 'confirm password',
-                        obscureText: false,
-                        hintText: 'enter to confirm your password',
-                        validator: (confirm) {
-                          if (confirm != passwordController.text) {
-                            return 'Your password don\'t match';
-                          }
-                          return null;
-                        },
-                      ),
-                      // mobile number
-                      cSizedBox50,
-
-                      // Login button
-                      // const Expanded(child: cSizedBox50),
-                      RegisterButton(
-                          title: 'Register',
-                          color: Colors.grey[900],
-                          onTap: signUp),
-                      cSizedBox20,
-                      // Text
-                      BottomTitle(
-                          title: 'Already have an account ',
-                          titleButton: 'Login',
-                          onPressed: () {
-                            Navigator.pushNamed(context, LoginScreen.route);
-                          }),
-                    ],
-                  ),
+                    ),
+                    // mobile number
+                    cSizedBox20,
+                    MyTextField(
+                      controller: confirmPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
+                      labelText: 'confirm password',
+                      obscureText: false,
+                      hintText: 'enter to confirm your password',
+                      validator: (confirm) {
+                        if (confirm != passwordController.text) {
+                          return 'Your password don\'t match';
+                        }
+                        return null;
+                      },
+                    ),
+                    // mobile number
+                    cSizedBox50,
+                    
+                    // Login button
+                    // const Expanded(child: cSizedBox50),
+                    RegisterButton(
+                        title: 'Register',
+                        color: Colors.grey[900],
+                        onTap: signUp),
+                    cSizedBox20,
+                    // Text
+                    BottomTitle(
+                        title: 'Already have an account ',
+                        titleButton: 'Login',
+                        onPressed: () {
+                          Navigator.pushNamed(context, LoginScreen.route);
+                        }),
+                  ],
                 ),
               ),
       ),

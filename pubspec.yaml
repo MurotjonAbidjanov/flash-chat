@@ -43,6 +43,7 @@ dependencies:
   image_cropper: ^5.0.0
   image_picker: ^1.0.0
   uuid: ^3.0.7
+  equatable: ^2.0.5
   
 
 
