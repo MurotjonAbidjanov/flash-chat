@@ -28,8 +28,8 @@ class ChatModel extends Equatable {
     return ChatModel(
       // sender: json['sender'],
       // senderId: json['senderId'],
-      message: json['message'],
-      userName: json['userName'],
+      message: json['message'].toString(),
+      userName: json['userName'].toString(),
       createdAt: json['createdAt'],
     );
   }
