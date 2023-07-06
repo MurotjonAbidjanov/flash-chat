@@ -2,23 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class ChatModel extends Equatable {
-  // final String? sender;
-  // final String? senderId;
+  final String? sender;
+  final String? senderId;
   final String? message;
   final String? userName;
   final Timestamp? createdAt;
 
   ChatModel(
       {
-      //   this.sender,
-      // this.senderId,
+        this.sender,
+      this.senderId,
       this.message,
       this.userName = '',
       this.createdAt});
 
   Map<String, dynamic> toJson() => {
-        // 'sender': sender,
-        // 'senderId': senderId,
+        'sender': sender,
+        'senderId': senderId,
         'message': message,
         'userName': userName,
         'createdAt': Timestamp.now()
@@ -26,8 +26,8 @@ class ChatModel extends Equatable {
 
   factory ChatModel.fromJson(Map<String, dynamic> json) {
     return ChatModel(
-      // sender: json['sender'],
-      // senderId: json['senderId'],
+      sender: json['sender'],
+      senderId: json['senderId'],
       message: json['message'].toString(),
       userName: json['userName'].toString(),
       createdAt: json['createdAt'],
@@ -36,5 +36,5 @@ class ChatModel extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [message, userName, createdAt];
+  List<Object?> get props => [message, userName, createdAt, sender, senderId];
 }

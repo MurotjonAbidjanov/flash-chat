@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flash_chat/app/screens/chats/chat.dart';
+// import 'package:flash_chat/app/screens/chats/chat.dart';
 
 import 'package:flash_chat/app/widgets/auth/auth.dart';
-import 'package:flash_chat/app/screens/home_screen.dart';
+// import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/introduction_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
@@ -28,9 +28,9 @@ class HomePage extends StatelessWidget {
         LoginScreen.route: (context) => LoginScreen(),
         RegisterScreen.route: (context) => RegisterScreen(),
         IntroductionScreen.route: (context) => const IntroductionScreen(),
-        HomeScreen.route: (context) => const HomeScreen(),
+        // HomeScreen.route: (context) => const HomeScreen(),
         Auth.route: (context) => const Auth(),
-        Chat.route:(context) => const Chat()
+        // Chat.route:(context) => const Chat()
       },
       debugShowCheckedModeBanner: false,
     );

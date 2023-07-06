@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat/app/screens/chats/chat.dart';
 import 'package:flash_chat/app/widgets/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/login_screen.dart';
@@ -26,35 +27,30 @@ class _RegisterScreen extends State<RegisterScreen> {
   final confirmPasswordController = TextEditingController();
   final nameController = TextEditingController();
   final users = FirebaseFirestore.instance.collection('users');
-  bool passToggle = true;
   final _formKey = GlobalKey<FormState>();
+  bool passToggle = true;
   bool isLoading = false;
-  final uid = const Uuid().v4;
-
-  Future<void> addUser() {
-     final userModel = UserModel(email: usernameController.text, id: uid.toString(), name: nameController.text);
-    return users
-        .add(
-          userModel.toJson()
-        )
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
-  }
+  final uid = const Uuid();
 
   void signUp() async {
+    final userModel = UserModel(
+        email: usernameController.text, id: uid.v4(), name: nameController.text);
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
       isLoading = true;
     });
-    // make sure password match
+
 
 // creating user
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
-          .then((value) => {addUser()})
-          .then((value) => Navigator.pushNamed(context, HomeScreen.route));
+          .then((value) => {users.add(userModel.toJson())})
+          .then((value) => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Chat(userModel: userModel))));
       isLoading = false;
     } on FirebaseException catch (e) {
       if (e.code == 'weak-password') {
@@ -66,6 +62,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   }
 
   void displayMessage(String message) {
+    Navigator.pop(context);
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -109,7 +106,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       ),
                     ),
                     cSizedBox10,
-                    
+
                     MyTextField(
                       controller: nameController,
                       keyboardType: TextInputType.name,
@@ -124,7 +121,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       },
                     ),
                     // Login button
-                    
+
                     cSizedBox20,
                     MyTextField(
                       controller: usernameController,
@@ -168,9 +165,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                           });
                         },
                         child: Icon(
-                          passToggle
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                          passToggle ? Icons.visibility_off : Icons.visibility,
                           color: cWhiteColor,
                         ),
                       ),
@@ -192,7 +187,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     ),
                     // mobile number
                     cSizedBox50,
-                    
+
                     // Login button
                     // const Expanded(child: cSizedBox50),
                     RegisterButton(

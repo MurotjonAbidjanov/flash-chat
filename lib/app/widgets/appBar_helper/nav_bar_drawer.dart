@@ -37,8 +37,8 @@ Widget buildHeader(BuildContext context) {
   late File? imageFile;
 
   void selectImage(ImageSource source) async {
-  XFile? pickedFile = await ImagePicker().pickImage(source: source);
-  // if(pickedFile != null)
+    XFile? pickedFile = await ImagePicker().pickImage(source: source);
+    // if(pickedFile != null)
   }
 
   void cropImage() async {}
@@ -54,6 +54,7 @@ Widget buildHeader(BuildContext context) {
               children: [
                 ListTile(
                   onTap: () {
+                    Navigator.pop(context);
                     selectImage(ImageSource.gallery);
                   },
                   leading: const Icon(Icons.photo_album),
@@ -61,6 +62,7 @@ Widget buildHeader(BuildContext context) {
                 ),
                 ListTile(
                   onTap: () {
+                    Navigator.pop(context);
                     selectImage(ImageSource.camera);
                   },
                   leading: const Icon(Icons.photo_camera),

@@ -4,15 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/constants/color_const/color_const.dart';
 import 'package:flash_chat/app/models/chat_model.dart';
+import 'package:flash_chat/app/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 final _fireStore = FirebaseFirestore.instance;
 User? loggedInUser;
 
 class Chat extends StatefulWidget {
-  const Chat({Key? key}) : super(key: key);
+  const Chat({Key? key, required this.userModel}) : super(key: key);
   static const String route = 'chat';
-
+  final UserModel? userModel;
   @override
   _ChatState createState() => _ChatState();
 }
@@ -46,69 +47,84 @@ class _ChatState extends State<Chat> {
           title: const Text('chat'),
           centerTitle: true,
         ),
-        body: SafeArea(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const MessageStream(),
-            const Expanded(child: SizedBox()),
-            Container(
-              decoration: const BoxDecoration(
-                  border: Border(top: BorderSide(color: cRegisterColor))),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 13, vertical: 10),
-                      child: TextField(
-                        onChanged: (value) {
-                          messageText = value;
-                        },
-                        cursorColor: cRegisterColor,
-                        style: const TextStyle(
-                            color: cRegisterColor, fontSize: 17),
-                        controller: messageController,
-                        decoration: const InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: cRegisterColor, width: 1.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(28))),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: cRegisterColor, width: 1.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(28))),
-                            hintText: ' Type your message here ...',
-                            hintStyle: TextStyle(color: cRegisterColor)),
+        body: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: SafeArea(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const MessageStream(),
+              const Expanded(child: SizedBox()),
+              Container(
+                decoration: const BoxDecoration(
+                    border: Border(top: BorderSide(color: cRegisterColor))),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 13, vertical: 10),
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          onChanged: (value) {
+                            messageText = value;
+                          },
+                          cursorColor: cRegisterColor,
+                          style: const TextStyle(
+                              color: cRegisterColor,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400),
+                          controller: messageController,
+                          decoration: const InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: cRegisterColor, width: 1.5),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(28))),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: cRegisterColor, width: 1.5),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(28))),
+                              hintText: ' Type your message here ...',
+                              hintStyle: TextStyle(color: cRegisterColor)),
+                        ),
                       ),
                     ),
-                  ),
-                  FloatingActionButton.small(
-                    heroTag: '1',
-                    backgroundColor: cRegisterColor,
-                    onPressed: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      final chatModel = ChatModel(
-                          createdAt: Timestamp.now(),
-                          message: messageController.text,
-                          userName: loggedInUser!.email);
-                      messageController.clear();
-                      _fireStore.collection('messages').add(chatModel.toJson());
-                    },
-                    child: const Icon(
-                      Icons.send,
-                      color: cWhiteColor,
-                      size: 20,
-                    ),
-                  )
-                ],
+                    FloatingActionButton.small(
+                      heroTag: '1',
+                      backgroundColor: cRegisterColor,
+                      onPressed: () {
+                        if (messageText!.isNotEmpty) {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                          final chatModel = ChatModel(
+                              createdAt: Timestamp.now(),
+                              message: messageController.text,
+                              userName: loggedInUser!.email,
+                              sender: widget.userModel!.name,
+                              senderId: widget.userModel!.id);
+
+                          messageController.clear();
+                          _fireStore
+                              .collection('messages')
+                              .add(chatModel.toJson());
+                          messageController.clear();
+                        }
+                      },
+                      child: const Icon(
+                        Icons.send,
+                        color: cWhiteColor,
+                        size: 20,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
-        )));
+            ],
+          )),
+        ));
   }
 }
 
@@ -119,7 +135,7 @@ class MessageStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _fireStore.collection('messages').snapshots(),
-      builder: (context,  snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(
             child: CircularProgressIndicator(
@@ -127,22 +143,22 @@ class MessageStream extends StatelessWidget {
             ),
           );
         }
-        final messages = snapshot.data.documents.reversed;
+        // final messages = snapshot.data.documents.reversed;
         List<MessageBuble> messageBubbles = [];
-        for (var message in messages) {
-          final messageText = message.data['text'];
-          final messageSender = message.data['sender'];
+        // for (var message in messages) {
+        //   final messageText = message.data['text'];
+        //   final messageSender = message.data['sender'];
 
-          final currentUser = loggedInUser!.email;
+        //   final currentUser = loggedInUser!.email;
 
-          final messageBubble = MessageBuble(
-            sender: messageSender,
-            text: messageText,
-            isMe: currentUser == messageSender,
-          );
+        //   final messageBubble = MessageBuble(
+        //     sender: messageSender,
+        //     text: messageText,
+        //     isMe: currentUser == messageSender,
+        //   );
 
-          messageBubbles.add(messageBubble);
-        }
+        //   messageBubbles.add(messageBubble);
+        // }
         return Expanded(
           child: ListView(
             reverse: true,
