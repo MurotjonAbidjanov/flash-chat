@@ -54,8 +54,11 @@ class _ChatState extends State<Chat> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const MessageStream(),
-              const Expanded(child: SizedBox()),
+              // list
+              MessageStream(),
+
+              //input field
+              // const Expanded(child: SizedBox()),
               Container(
                 decoration: const BoxDecoration(
                     border: Border(top: BorderSide(color: cRegisterColor))),
@@ -129,42 +132,37 @@ class _ChatState extends State<Chat> {
 }
 
 class MessageStream extends StatelessWidget {
-  const MessageStream({super.key});
-
+  MessageStream({super.key});
+  final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+      .collection('messages')
+      .orderBy('createdAt', descending: false)
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _fireStore.collection('messages').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(
-              backgroundColor: cRegisterColor,
-            ),
-          );
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
         }
-        // final messages = snapshot.data.documents.reversed;
-        List<MessageBuble> messageBubbles = [];
-        // for (var message in messages) {
-        //   final messageText = message.data['text'];
-        //   final messageSender = message.data['sender'];
 
-        //   final currentUser = loggedInUser!.email;
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
 
-        //   final messageBubble = MessageBuble(
-        //     sender: messageSender,
-        //     text: messageText,
-        //     isMe: currentUser == messageSender,
-        //   );
-
-        //   messageBubbles.add(messageBubble);
-        // }
         return Expanded(
           child: ListView(
-            reverse: true,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            children: messageBubbles,
+            // shrinkWrap: true,
+
+            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+              final data = document.data()! as Map<String, dynamic>;
+              return ListTile(
+                title: MessageBuble(
+                    sender: data['sender'],
+                    text: data['message'],
+                    isMe: loggedInUser!.email == data['userName']),
+              );
+            }).toList(),
           ),
         );
       },
@@ -186,6 +184,8 @@ class MessageBuble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Column(
+          mainAxisAlignment:
+              isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           crossAxisAlignment:
               isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
