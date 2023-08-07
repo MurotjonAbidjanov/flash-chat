@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/models/user_model.dart';
+import 'package:flash_chat/app/screens/chats/chat.dart';
 
 import 'package:flash_chat/app/widgets/buttons/register_button.dart';
 import 'package:flash_chat/app/screens/home_screen.dart';
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
-          .then((value) => Navigator.pushNamed(context, HomeScreen.route));
+          .then((value) => Navigator.pushNamed(context, Chat.route));
       isLoading = false;
     } on FirebaseAuthException catch (e) {
       displayMessage(e.code);

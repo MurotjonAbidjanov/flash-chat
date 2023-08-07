@@ -27,26 +27,33 @@ class _RegisterScreen extends State<RegisterScreen> {
   final confirmPasswordController = TextEditingController();
   final nameController = TextEditingController();
   final users = FirebaseFirestore.instance.collection('users');
+  final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   bool passToggle = true;
   bool isLoading = false;
-  final uid = const Uuid();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void signUp() async {
     final userModel = UserModel(
-        email: usernameController.text, id: uid.v4(), name: nameController.text);
+        email: usernameController.text,
+        id: await _auth.currentUser!.uid,
+        name: nameController.text);
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
       isLoading = true;
     });
-
 
 // creating user
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
-          .then((value) => {users.add(userModel.toJson())})
+          .then((value) =>
+              {users.doc(_auth.currentUser!.uid).set(userModel.toJson())})
           .then((value) => Navigator.push(
               context,
               MaterialPageRoute(

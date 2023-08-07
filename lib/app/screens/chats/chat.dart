@@ -196,13 +196,14 @@ class MessageBuble extends StatelessWidget {
             Material(
               borderRadius: isMe
                   ? const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30))
+                      topRight: Radius.circular(13),
+                      topLeft: Radius.circular(13),
+                      bottomLeft: Radius.circular(13),
+                    )
                   : const BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
+                      bottomRight: Radius.circular(13),
+                      topRight: Radius.circular(13),
+                      topLeft: Radius.circular(13)),
               elevation: 5,
               color: isMe ? cRegisterColor : Colors.white54,
               child: Padding(
