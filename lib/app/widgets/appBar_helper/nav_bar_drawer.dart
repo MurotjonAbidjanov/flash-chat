@@ -24,7 +24,7 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            buildHeader(context),
+            buildHeader(),
             buildMenuItems(context),
           ],
         ),
@@ -33,15 +33,56 @@ class _NavBarDrawerState extends State<NavBarDrawer> {
   }
 }
 
-Widget buildHeader(BuildContext context) {
-  late File? imageFile;
+class buildHeader extends StatefulWidget {
+  const buildHeader({super.key});
 
-  void selectImage(ImageSource source) async {
-    XFile? pickedFile = await ImagePicker().pickImage(source: source);
-    // if(pickedFile != null)
+  @override
+  State<buildHeader> createState() => _buildHeaderState();
+}
+
+class _buildHeaderState extends State<buildHeader> {
+  XFile? _imageFile;
+  dynamic pickedImageEror;
+  late String profileImage;
+  final ImagePicker imagePicker = ImagePicker();
+
+  void _pickImageFromCamera() async {
+    try {
+      final picKedImage = await imagePicker.pickImage(
+        imageQuality: 95,
+        maxHeight: 300,
+        maxWidth: 300,
+        source: ImageSource.camera,
+      );
+
+      setState(() {
+        _imageFile = picKedImage;
+      });
+    } catch (e) {
+      setState(() {
+        pickedImageEror = e;
+      });
+    }
   }
 
-  void cropImage() async {}
+  void _pickImageFromGallery() async {
+    try {
+      final picKedImage = await imagePicker.pickImage(
+        imageQuality: 95,
+        maxHeight: 300,
+        maxWidth: 300,
+        source: ImageSource.gallery,
+      );
+
+      setState(() {
+        _imageFile = picKedImage;
+      });
+    } catch (e) {
+      setState(() {
+        pickedImageEror = e;
+      });
+    }
+  }
 
   void showPhotoOptions() {
     showDialog(
@@ -55,7 +96,7 @@ Widget buildHeader(BuildContext context) {
                 ListTile(
                   onTap: () {
                     Navigator.pop(context);
-                    selectImage(ImageSource.gallery);
+                    _pickImageFromGallery();
                   },
                   leading: const Icon(Icons.photo_album),
                   title: const Text("Select from Gallery"),
@@ -63,7 +104,7 @@ Widget buildHeader(BuildContext context) {
                 ListTile(
                   onTap: () {
                     Navigator.pop(context);
-                    selectImage(ImageSource.camera);
+                    _pickImageFromCamera();
                   },
                   leading: const Icon(Icons.photo_camera),
                   title: const Text("Take a photo"),
@@ -74,60 +115,66 @@ Widget buildHeader(BuildContext context) {
         });
   }
 
-  return Container(
-    height: MediaQuery.of(context).size.height * .27,
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-          image: AssetImage('assets/images/drawerAppBar.jpeg'),
-          fit: BoxFit.cover),
-    ),
-    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-    child: Stack(
-      children: [
-        Positioned(
-          top: MediaQuery.of(context).size.height * .01,
-          right: MediaQuery.of(context).size.width * 0.2,
-          child: const Column(
-            children: [
-              CircleAvatar(
-                radius: 70,
-                backgroundImage: AssetImage(
-                  'assets/images/mers.webp',
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .27,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/drawerAppBar.jpeg'),
+            fit: BoxFit.cover),
+      ),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      child: Stack(
+        children: [
+          Positioned(
+            top: MediaQuery.of(context).size.height * .01,
+            right: MediaQuery.of(context).size.width * 0.2,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: _imageFile == null
+                      ? null
+                      : FileImage(
+                          File(_imageFile!.path),
+                        ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'mr.X',
-                style: TextStyle(fontSize: 28, color: cWhiteColor),
-              ),
-              Text(
-                'test@gmail.com',
-                style: TextStyle(fontSize: 16, color: cWhiteColor),
-              ),
-              cSizedBox20
-            ],
-          ),
-        ),
-        Positioned(
-          top: 100,
-          right: 80,
-          child: FloatingActionButton.small(
-            backgroundColor: cWhiteColor,
-            onPressed: () {
-              showPhotoOptions();
-            },
-            child: const Icon(
-              Icons.camera_alt,
-              color: cRegisterColor,
-              size: 20,
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  'mr.X',
+                  style: TextStyle(fontSize: 28, color: cWhiteColor),
+                ),
+                const Text(
+                  'test@gmail.com',
+                  style: TextStyle(fontSize: 16, color: cWhiteColor),
+                ),
+                cSizedBox20
+              ],
             ),
           ),
-        ),
-      ],
-    ),
-  );
+          Positioned(
+            top: 100,
+            right: 80,
+            child: FloatingActionButton.small(
+              backgroundColor: cWhiteColor,
+              onPressed: () {
+                showPhotoOptions();
+              },
+              child: const Icon(
+                Icons.camera_alt,
+                color: cRegisterColor,
+                size: 20,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    ;
+  }
 }
 
 Widget buildMenuItems(BuildContext context) => Container(

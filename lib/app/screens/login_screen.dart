@@ -1,13 +1,14 @@
+
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/models/user_model.dart';
 import 'package:flash_chat/app/screens/chats/chat.dart';
-
 import 'package:flash_chat/app/widgets/buttons/register_button.dart';
-import 'package:flash_chat/app/screens/home_screen.dart';
 import 'package:flash_chat/app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import '../constants/color_const/color_const.dart';
 import '../constants/widget_const/widget_const.dart';
 import '../widgets/appBar_helper/app_bar_container.dart';
@@ -30,16 +31,28 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
+  Future<void> getUser(String? uid) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    final data = await users.doc(uid).get();
+  final userModel = UserModel.fromJson(data.data() as Map<String, dynamic>);
+log('${data.data()}');
+
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Chat(userModel: userModel)));
+  }
+
   void signIn() async {
     setState(() {
       isLoading = true;
     });
     try {
       FocusScope.of(context).requestFocus(FocusNode());
-      await FirebaseAuth.instance
+      final UserCredential credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-              email: usernameController.text, password: passwordController.text)
-          .then((value) => Navigator.pushNamed(context, Chat.route));
+              email: usernameController.text,
+              password: passwordController.text);
+
+      getUser(credential.user!.uid);
       isLoading = false;
     } on FirebaseAuthException catch (e) {
       displayMessage(e.code);

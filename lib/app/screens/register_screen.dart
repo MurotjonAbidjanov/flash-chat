@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/app/screens/chats/chat.dart';
@@ -32,16 +34,28 @@ class _RegisterScreen extends State<RegisterScreen> {
   bool passToggle = true;
   bool isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
+  Future<void> addUser() {
+    final userModel = UserModel(
+        email: usernameController.text,
+        id: _auth.currentUser!.uid,
+        name: nameController.text);
+    return users
+        .doc(_auth.currentUser!.uid)
+        .set(userModel.toJson())
+        .then((value) => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Chat(
+                    userModel: userModel,
+                  ),
+                ),
+              ),
+            })
+        .catchError((error) => log("Failed to add user: $error"));
   }
 
   void signUp() async {
-    final userModel = UserModel(
-        email: usernameController.text,
-        id: await _auth.currentUser!.uid,
-        name: nameController.text);
     FocusScope.of(context).requestFocus(FocusNode());
     setState(() {
       isLoading = true;
@@ -52,12 +66,8 @@ class _RegisterScreen extends State<RegisterScreen> {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: usernameController.text, password: passwordController.text)
-          .then((value) =>
-              {users.doc(_auth.currentUser!.uid).set(userModel.toJson())})
-          .then((value) => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Chat(userModel: userModel))));
+          .then((value) => addUser());
+
       isLoading = false;
     } on FirebaseException catch (e) {
       if (e.code == 'weak-password') {
